@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Amazon review classifier</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container h-100">
+		<div class="row align-items-center h-100">
+			<div class="col-10 mx-auto">
+				<div class="jumbotron" style="padding:2rem 2rem">
+
+					<h3 class="display-5 text-center">Enter your fake Amazon review</h3>
+
+					<form action="/classify" method="get">
+						<div class="input-group mb-3">
+							<input name="review" type="text" class="form-control" placeholder="Write your review" aria-label="Write your review" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="submit">Go!</button>
+							</div>
+						</div>
+					</form>
+					{% if review is defined %}
+					<hr class="my-4">
+					<p class="lead">
+						"{{review}}"
+					</p>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+
+		{% if probaList is defined %}
+		<div class="row align-items-center h-100">
+			<div class="col-10 mx-auto">
+				<h3 class="display-5 text-center">Resulting category : <b>{{probaList[0].name}}</b> </h3>
+				<p>{{classes}}</p>
+			</div>
+		</div>
+
+		<div class="row align-items-center h-100">
+			<div class="col-10 mx-auto">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Category</th>
+							<th scope="col">Probability</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for proba in probaList %}
+						<tr>
+							<th scope="row">{{loop.index}}</th>
+							<td>{{ proba.name }}</td>
+							<td>{{ proba.proba }} %</td>
+						</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		{% endif %}
+
+		<div class="row align-items-center h-100">
+			<div class="col-10 mx-auto">
+				<div>
+					<h4>Project description</h4>
+					<p>This project aims to automatically classify customer reviews in categories. The original dataset contains 1 000 000 reviews (100 000 reviews for each category). The model used is a Naive Bayes classifier, which has been trained on 80% of the dataset.</p>
+				</div>
+				<div>
+					<h4>Data Sources: </h4>
+					<p>
+						<em>This project is using the free research dataset from <a href="http://jmcauley.ucsd.edu/data/amazon/">http://jmcauley.ucsd.edu/data/amazon/</a></em>
+					</p>
+					<blockquote class="blockquote">
+
+						<p class="mb-0">Ups and downs: Modeling the visual evolution of fashion trends with one-class collaborative filtering - 
+							<a href="http://cseweb.ucsd.edu/~jmcauley/pdfs/www16a.pdf">pdf</a>
+						</p>
+						<footer class="blockquote-footer">From R. He, J. McAuley
+							<cite title="Date">WWW, 2016</cite>
+						</footer>
+
+					</blockquote>
+					<blockquote class="blockquote">
+
+						<p class="mb-0">Image-based recommendations on styles and substitutes - 
+							<a href="http://cseweb.ucsd.edu/~jmcauley/pdfs/sigir15.pdf">pdf</a>
+						</p>
+						<footer class="blockquote-footer">From J. McAuley, C. Targett, J. Shi, A. van den Hengel
+							<cite title="Date">SIGIR, 2015</cite>
+						</footer>
+
+					</blockquote>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+
+
