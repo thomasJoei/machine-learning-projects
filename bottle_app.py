@@ -1,6 +1,14 @@
 from bottle import request, route, run, jinja2_view
 from amazon_review_classifier.review_classifier import getProbaList
 
+@route('/')
+@jinja2_view('index.html')
+def index():
+	paths = [
+		{'link': '/classify', 'name': 'Amazon review classifier'}
+	]
+	return dict(paths=paths)
+
 @route('/classify')
 @jinja2_view('classification.html')
 def classify():
