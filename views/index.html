@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Artificial Intelligence projects</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container h-100">
+		<div class="row align-items-center h-100 my-3">
+			<div class="col-md-5 mx-auto">
+				<h1 class="display-5 text-center">Index</h1>
+				<div class="list-group">
+					{% for path in paths %}
+						<a class="list-group-item list-group-item-action" href="{{path.link}}">{{path.name}}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div class="row align-items-center h-100 my-5">
+			<div class="col-md-10 mx-auto text-center">
+				<p>This website is powered by <a href="https://bottlepy.org/docs/dev/index.html">Bottle</a>, a Python super light Web Framework</p>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
+
+
+

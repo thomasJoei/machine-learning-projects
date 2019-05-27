@@ -22,4 +22,4 @@ def classify():
 	
 
 # run(host='localhost', port=8092, reloader=True, debug=True)
-# to run via command line : ython -m bottle --debug --reload --bind localhost:8092 bottle_app
+# to run via command line : python -m bottle --debug --reload --bind localhost:8092 bottle_app
