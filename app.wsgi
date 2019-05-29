@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(__file__))
 # Do NOT use bottle.run() with mod_wsgi
 
 import bottle
-from rs import app as application
+#from rs import app as application
 from bottle import route
 import classifier_app
 application=bottle.default_app()
