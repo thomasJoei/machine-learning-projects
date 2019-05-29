@@ -10,5 +10,5 @@ sys.path.append(os.path.dirname(__file__))
 import bottle
 #from rs import app as application
 from bottle import route
-import classifier_app
+import bottle_app
 application=bottle.default_app()
