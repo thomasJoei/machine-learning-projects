@@ -3,11 +3,12 @@
 <head>
 	<title>Amazon review classifier</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<div class="container h-100">
 		<div class="row align-items-center h-100">
-			<div class="col-10 mx-auto">
+			<div class="col-lg-10 col-sm-12 mx-auto">
 				<div class="jumbotron" style="padding:2rem 2rem">
 
 					<h3 class="display-5 text-center">Enter your fake Amazon review</h3>
@@ -33,14 +34,14 @@
 
 		{% if probaList is defined %}
 		<div class="row align-items-center h-100 my-3">
-			<div class="col-10 mx-auto">
+			<div class="col-lg-10 col-sm-12 mx-auto">
 				<h3 class="display-5 text-center">Resulting category : <b>{{probaList[0].name}}</b> </h3>
 				<p>{{classes}}</p>
 			</div>
 		</div>
 
 		<div class="row align-items-center h-100">
-			<div class="col-10 mx-auto">
+			<div class="col-lg-10 col-sm-12 mx-auto">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -66,7 +67,7 @@
 		{% endif %}
 
 		<div class="row align-items-center h-100 my-3">
-			<div class="col-10 mx-auto">
+			<div class="col-lg-10 col-sm-12 mx-auto">
 				<div>
 					<h4>Project description</h4>
 					<p>
@@ -92,7 +93,7 @@
 			</div>
 		</div>
 			<div class="row align-items-center h-100 my-3">
-			<div class="col-10 mx-auto">
+			<div class="col-lg-10 col-sm-12 mx-auto">
 				<div>
 					<h4>Data Sources: </h4>
 					<p>
