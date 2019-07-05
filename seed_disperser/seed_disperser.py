@@ -14,7 +14,7 @@ import random
 np.random.seed(19680801)
 import matplotlib.pyplot as plt
 
-def countSeeds(area_list, seed_layers):
+def count_seeds(area_list, seed_layers):
     result = dict.fromkeys(seed_layers, 0)
     
     for x in area_list:
@@ -23,20 +23,20 @@ def countSeeds(area_list, seed_layers):
     
     return result
 
-def printDistribution(area_list, seed_layers):
-    result = countSeeds(area_list, seed_layers)
+def print_distribution(area_list, seed_layers):
+    result = count_seeds(area_list, seed_layers)
     seeds_count = sum(result.values())
     
     for seed_type, seed_nb in result.items():
         print("{} : {} ({}%)".format(seed_type, seed_nb, (seed_nb / seeds_count) * 100))
 
-def decrementSeedNumber(key, seed_layers, seeds_stocks):
+def decrement_seed_stock(key, seed_layers, seeds_stocks):
     seeds_stocks[key] -= 1
    
     if (seeds_stocks[key] <= 0):  # removing from list if no seeds left
         seed_layers.remove(key)
     
-def selectSeedsFromStock(size, seeds_stocks):
+def select_seeds_from_stock(size, seeds_stocks):
     seed_layers = list(seeds_stocks.keys())
     selection = []
 
@@ -50,16 +50,16 @@ def selectSeedsFromStock(size, seeds_stocks):
         selection = np.concatenate((selection, my_selection), axis=None) 
         
         for seedName in my_selection:
-            decrementSeedNumber(seedName, seed_layers, seeds_stocks)
+            decrement_seed_stock(seedName, seed_layers, seeds_stocks)
         
     return selection
 
 
-def plantSeeds(area_size, seeds_stocks):
+def plant_seeds(area_size, seeds_stocks):
     area = []
     
     for i in range(area_size) :
-        area.append(selectSeedsFromStock(3, seeds_stocks))
+        area.append(select_seeds_from_stock(3, seeds_stocks))
 
     # Shuffle the area to avoid lack of one seed layer at the end of the list.
     # e.g: if there is 20% of one layer the stock will go empty pretty fast 
@@ -71,17 +71,17 @@ def plantSeeds(area_size, seeds_stocks):
 def rand_jitter(arr):
     return arr + np.random.uniform(low=0.1, high=0.9, size=len(arr))
 
-def getCoordinates(case_index, length):
+def get_coordinates(case_index, length):
     x = float(case_index % length)
     y = float(case_index // length)
     return x, y
 
-def separateSeeds(linear_area, length, seed_layers):
+def separate_seeds(linear_area, length, seed_layers):
     result = {key: {'x' : [], 'y' : []} for key in seed_layers}
     
     for case_index, square in enumerate(linear_area):
         for seed in square:
-            x,y = getCoordinates(case_index, length)
+            x,y = get_coordinates(case_index, length)
             result[seed]['x'].append(x)
             result[seed]['y'].append(y)
     
@@ -93,7 +93,7 @@ def jitter(ax, x, y, s=20, c='b', marker='.', cmap=None, norm=None, vmin=None, v
                       vmin=vmin, vmax=vmax, alpha=alpha, linewidths=linewidths, verts=verts, **kwargs)
 
 
-def getPlot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
+def get_plot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
     'canopy' : 'tab:blue',
     'tree_stratum' : 'tab:orange',
     'understorey' : 'tab:green',
@@ -133,7 +133,7 @@ def getPlot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
     
     return fig, ax
 
-def disperseSeeds(seeds_stocks, length, width):
+def disperse_seeds(seeds_stocks, length, width):
     
     area_size = length * width
     seeds_count = area_size * 3
@@ -148,21 +148,21 @@ def disperseSeeds(seeds_stocks, length, width):
         print("The seed sum is {} and must be {}".format(seed_sum, seeds_count))
         return 
     
-    area = plantSeeds(area_size, seeds_stocks)
+    area = plant_seeds(area_size, seeds_stocks)
     
     # Need to validate seed number at first since we can lack one seed layer in 
     # the end which will make some square meters fail the "3 different seeds" condition
     # we need to ensure the pourcentage of each seed layer is right
-    printDistribution(area, list(seeds_stocks.keys()))
+    #print_distribution(area, list(seeds_stocks.keys()))
     
     scale = 1000/max(length, width)
 
-    coordinates_per_seed_type = separateSeeds(area, length, list(seeds_stocks.keys()))
-    fig, ax = getPlot(coordinates_per_seed_type, length, width, scale=scale)
+    coordinates_per_seed_type = separate_seeds(area, length, list(seeds_stocks.keys()))
+    fig, ax = get_plot(coordinates_per_seed_type, length, width, scale=scale)
 
     return fig, ax
 
-def getSvgFromFigure(fig):
+def get_svg(fig):
     # plt.figure(figsize=(3,4))
     # plt.rcParams["figure.figsize"] = [500,300]
     imgdata = io.StringIO()

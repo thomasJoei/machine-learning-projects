@@ -42,8 +42,8 @@ def disperse():
 
     verify_disperse_params(length, width, seeds_stocks)
     
-    fig, ax = seed_disperser.disperseSeeds(seeds_stocks, length, width)
-    svg_data = seed_disperser.getSvgFromFigure(fig)
+    fig, ax = seed_disperser.disperse_seeds(seeds_stocks, length, width)
+    svg_data = seed_disperser.get_svg(fig)
 
     return svg_data
 
