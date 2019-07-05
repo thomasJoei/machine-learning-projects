@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Seed disperser</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container h-100">
+		<div class="row align-items-center h-100">
+			<div class="col-lg-10 col-sm-12 mx-auto">
+				<div>
+
+					<h3 class="display-5 text-center">Enter data</h3>
+
+					<form action="/seed-disperser" method="post">
+						<div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Length</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="length" name="length" aria-label="length" >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Width</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="width" name="width" aria-label="width" >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Canopy</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="canopy" name="canopy" aria-label="canopy"  >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Tree stratum</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="tree_stratum" name="tree_stratum" aria-label="tree_stratum"  >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Understorey</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="understorey" name="understorey" aria-label="understorey"  >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-2 col-form-label">Shrub Layer</label>
+								<div class="col-10">
+									<input class="form-control" type="text" id="shrub_layer" name="shrub_layer" aria-label="shrub_layer"  >
+								</div>
+							</div>
+
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="submit">Go!</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+		{% if result is defined %}
+		{{ result }}
+
+		{% endif %}
+
+
+		
+
+
+	</div>
+
+</body>
+</html>
+
+
+
