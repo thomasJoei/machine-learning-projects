@@ -18,39 +18,42 @@
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Length</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="length" name="length" aria-label="length" >
+									<input class="form-control" type="text" id="length" name="length" aria-label="length" placeholder="ex: 50">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Width</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="width" name="width" aria-label="width" >
+									<input class="form-control" type="text" id="width" name="width" aria-label="width" placeholder="ex: 30">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Canopy</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="canopy" name="canopy" aria-label="canopy"  >
+									<input class="form-control" type="text" id="canopy" name="canopy" aria-label="canopy" placeholder="ex: 500" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Tree stratum</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="tree_stratum" name="tree_stratum" aria-label="tree_stratum"  >
+									<input class="form-control" type="text" id="tree_stratum" name="tree_stratum" aria-label="tree_stratum" placeholder="ex: 1400" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Understorey</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="understorey" name="understorey" aria-label="understorey"  >
+									<input class="form-control" type="text" id="understorey" name="understorey" aria-label="understorey" placeholder="ex: 1300" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-2 col-form-label">Shrub Layer</label>
 								<div class="col-10">
-									<input class="form-control" type="text" id="shrub_layer" name="shrub_layer" aria-label="shrub_layer"  >
+									<input class="form-control" type="text" id="shrub_layer" name="shrub_layer" aria-label="shrub_layer" placeholder="ex: 1300" >
+									<small id="validation-warning" class="form-text text-muted">Ensure the sum of all seeds equals length * width * 3. Since we want exactly 3 seeds per square meter.</small>
 								</div>
+
 							</div>
+							
 
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" type="submit">Go!</button>
