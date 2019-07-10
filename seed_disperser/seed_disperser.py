@@ -89,12 +89,12 @@ def separate_seeds(linear_area, length, seed_layers):
     return result
 
 
-def jitter(ax, x, y, s=20, c='b', marker='.', cmap=None, norm=None, vmin=None, vmax=None, alpha=None, linewidths=None, verts=None, **kwargs):
+def jitter(ax, x, y, s=30, c='b', marker='.', cmap=None, norm=None, vmin=None, vmax=None, alpha=None, linewidths=None, verts=None, rasterized=False, **kwargs):
     return ax.scatter(rand_jitter(x), rand_jitter(y), s=s, c=c, marker=marker, cmap=cmap, norm=norm, 
-                      vmin=vmin, vmax=vmax, alpha=alpha, linewidths=linewidths, verts=verts, **kwargs)
+                      vmin=vmin, vmax=vmax, alpha=alpha, linewidths=linewidths, rasterized=rasterized, verts=verts, **kwargs)
 
 
-def get_plot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
+def get_plot(coordinates_per_seed_type, length, width, lowquality=False, seed_color = {
     'canopy' : 'tab:blue',
     'tree_stratum' : 'tab:orange',
     'understorey' : 'tab:green',
@@ -107,8 +107,8 @@ def get_plot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
     
     for seed_type, coordinates in coordinates_per_seed_type.items():
         marker_letter = seed_type[:1] # first letter
-        jitter(ax, coordinates.get('x'), coordinates.get('y'), c=seed_color.get(seed_type), s=scale, label=seed_type,
-                   alpha=0.8, 
+        jitter(ax, coordinates.get('x'), coordinates.get('y'), c=seed_color.get(seed_type), label=seed_type,
+                   alpha=0.8, rasterized=lowquality
                #marker="${}$".format(marker_letter)
               )
 
@@ -129,7 +129,6 @@ def get_plot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
     # fig.legend(loc="upper right")
     fig.legend(loc="lower left")
     fig.suptitle('Dispersed seeds', fontsize=16)
-    #plt.savefig("test.svg", format="svg")
     #plt.show()
     
     return fig, ax
@@ -139,9 +138,6 @@ def disperse_seeds(seeds_stocks, length, width):
     area_size = length * width
     seeds_count = area_size * 3
     
-    # print("area_size : {}".format(area_size))
-    # print("seeds_count : {}".format(seeds_count))
-    
     # validation 
     seed_sum = sum(seeds_stocks.values())
 
@@ -149,17 +145,10 @@ def disperse_seeds(seeds_stocks, length, width):
         print("The seed sum is {} and must be {}".format(seed_sum, seeds_count))
         return 
     
-    area = plant_seeds(area_size, seeds_stocks)
-    
-    # Need to validate seed number at first since we can lack one seed layer in 
-    # the end which will make some square meters fail the "3 different seeds" condition
-    # we need to ensure the pourcentage of each seed layer is right
-    #print_distribution(area, list(seeds_stocks.keys()))
-    
-    scale = 1000/max(length, width)
+    area = plant_seeds(area_size, seeds_stocks)    
 
     coordinates_per_seed_type = separate_seeds(area, length, list(seeds_stocks.keys()))
-    fig, ax = get_plot(coordinates_per_seed_type, length, width, scale=scale)
+    fig, ax = get_plot(coordinates_per_seed_type, length, width, lowquality=True)
 
     return fig, ax
 
@@ -175,41 +164,3 @@ def get_svg(fig):
 def get_svgz(fig):
     svg_data = get_svg(fig)
     return gzip.compress(svg_data.encode())
-
-#length = 50
-#width = 30
-#
-#seeds_stocks = {
-#'canopy' : 500,
-#'tree_stratum' : 1400,
-#'understorey' : 1300,
-#'shrub_layer' : 1300
-#}
-#
-#fig, ax = disperseSeeds(seeds_stocks, length, width)
-#
-#
-## In[14]:
-#
-#
-#fig.savefig("test-png-plot.png", format='png', dpi=1000)
-#
-#
-## In[12]:
-#
-#
-#import io
-#
-#imgdata = io.StringIO()
-#fig.savefig(imgdata, format='svg')
-#fig.savefig("test-png-plot.png", format='png', dpi=1000)
-#imgdata.seek(0)  # rewind the data
-#
-#svg_data = imgdata.getvalue()  # this is svg data
-#
-##save file 
-#f= open("test-svg-plot.svg","w")
-#f.write(svg_data)
-#f.close() 
-#file('test.htm', 'w').write(svg_dta)
-
