@@ -1,6 +1,7 @@
-from bottle import request, route, get, post, run, jinja2_view, HTTPError
+from bottle import request, response, route, get, post, run, jinja2_view, HTTPError
 import amazon_review_classifier.review_classifier as review_classifier
 import seed_disperser.seed_disperser as seed_disperser
+import gzip
 
 @route('/')
 @jinja2_view('index.html')
@@ -43,9 +44,11 @@ def disperse():
     verify_disperse_params(length, width, seeds_stocks)
     
     fig, ax = seed_disperser.disperse_seeds(seeds_stocks, length, width)
-    svg_data = seed_disperser.get_svg(fig)
+    compressed_svg = seed_disperser.get_svgz(fig)
 
-    return svg_data
+    response.set_header('Content-Encoding',     'gzip') # tell the browser this is gzip compressed
+
+    return compressed_svg
 
 @get('/seed-disperser')
 @jinja2_view('seed_disperser.html')

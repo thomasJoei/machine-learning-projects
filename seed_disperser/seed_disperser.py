@@ -10,6 +10,7 @@
 import io
 from enum import Enum 
 import numpy as np
+import gzip
 import random
 np.random.seed(19680801)
 import matplotlib.pyplot as plt
@@ -100,8 +101,8 @@ def get_plot(coordinates_per_seed_type, length, width, scale=500, seed_color = {
     'shrub_layer' : 'tab:brown'
     }):
 
-    # plt.figure(figsize=(length,width))
     plt.rcParams["figure.figsize"] = [length/5, width/5]
+    
     fig, ax = plt.subplots()
     
     for seed_type, coordinates in coordinates_per_seed_type.items():
@@ -138,8 +139,8 @@ def disperse_seeds(seeds_stocks, length, width):
     area_size = length * width
     seeds_count = area_size * 3
     
-    print("area_size : {}".format(area_size))
-    print("seeds_count : {}".format(seeds_count))
+    # print("area_size : {}".format(area_size))
+    # print("seeds_count : {}".format(seeds_count))
     
     # validation 
     seed_sum = sum(seeds_stocks.values())
@@ -163,15 +164,17 @@ def disperse_seeds(seeds_stocks, length, width):
     return fig, ax
 
 def get_svg(fig):
-    # plt.figure(figsize=(3,4))
-    # plt.rcParams["figure.figsize"] = [500,300]
     imgdata = io.StringIO()
-    fig.savefig(imgdata, format='svg', dpi=10)
+    fig.savefig(imgdata, format='svg')
     imgdata.seek(0)  # rewind the data
 
     svg_data = imgdata.getvalue()  # this is svg data
     imgdata.close()
     return svg_data
+
+def get_svgz(fig):
+    svg_data = get_svg(fig)
+    return gzip.compress(svg_data.encode())
 
 #length = 50
 #width = 30
