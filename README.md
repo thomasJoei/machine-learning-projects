@@ -5,7 +5,7 @@
 docker build -t ml-bootle:latest .
 
 # To start the container
-docker -d run -p 8000:8000 ml-bootle:latest
+docker run -d -p 8000:8000 ml-bootle:latest
 
 
 # To start the container in development mode with auto-reload and current folder binding enabled 
