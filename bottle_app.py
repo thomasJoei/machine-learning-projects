@@ -1,4 +1,4 @@
-from bottle import request, response, route, get, post, run, jinja2_view, HTTPError
+from bottle import request, response, route, get, post, run, jinja2_view, HTTPError, default_app
 import amazon_review_classifier.review_classifier as review_classifier
 import seed_disperser.seed_disperser as seed_disperser
 import gzip
@@ -63,6 +63,13 @@ def verify_disperse_params(length, width, seeds_stocks):
 
     if (seed_sum != seeds_count) :
         raise HTTPError(status=400, body="Bad parameters, seed count does not equals length * with * 3")
+
+# these two lines are only used for python app.py
+if __name__ == '__main__':
+    run(host='0.0.0.0', port=8001, debug=True, reloader=True)
+
+# this is the hook for Gunicorn to run Bottle
+app = default_app()
 
 # run(host='localhost', port=8092, reloader=True, debug=True)
 # to run via command line : python -m bottle --debug --reload --bind localhost:8092 bottle_app
